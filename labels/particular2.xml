@@ -1,0 +1,26 @@
+<annotation>
+	<folder>0-Particular</folder>
+	<filename>particular2.jpg</filename>
+	<path>Z:\home\pipe\Documents\Packages\IA-LAB03-Dataset\0-Particular\particular2.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>287</width>
+		<height>176</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Particular</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>60</xmin>
+			<ymin>20</ymin>
+			<xmax>232</xmax>
+			<ymax>166</ymax>
+		</bndbox>
+	</object>
+</annotation>

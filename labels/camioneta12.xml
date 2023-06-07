@@ -1,0 +1,26 @@
+<annotation>
+	<folder>1-Camioneta</folder>
+	<filename>camioneta12.jpg</filename>
+	<path>Z:\home\pipe\Documents\Packages\IA-LAB03-Dataset\1-Camioneta\camioneta12.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>251</width>
+		<height>201</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Camioneta</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>14</xmin>
+			<ymin>4</ymin>
+			<xmax>224</xmax>
+			<ymax>172</ymax>
+		</bndbox>
+	</object>
+</annotation>
