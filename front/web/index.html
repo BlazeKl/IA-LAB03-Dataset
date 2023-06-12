@@ -74,7 +74,7 @@
                     contentType: false,
                     success: function(response) {
                         console.log(response);
-                        $('#resultado').html(response);
+                        $('#resultado').html("<img src='data:image/jpeg;base64," + response + "' width='640px' alt=''>");
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.log(textStatus, errorThrown);

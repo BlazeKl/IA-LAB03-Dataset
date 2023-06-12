@@ -5,6 +5,7 @@ from PIL import Image
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import numpy as np
 import imageio
+import base64
 
 # Cargar modelo
 model = YOLO('best.pt')
@@ -28,6 +29,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         # Leer la imagen desde el archivo
         with open('output.jpg', 'rb') as file:
             image_data = file.read()
+            image_data = base64.b64encode(image_data)
 
         # Generar respuesta a la petición HTTP
         self.send_response(200)
