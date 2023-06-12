@@ -53,7 +53,6 @@
 
     </div>
     <center>
-        <div id="image-container"></div>
         <div id="resultado"></div>
         <form id="image-form" enctype="multipart/form-data">
             <p>Sube una imagen:
@@ -74,9 +73,8 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        console.log("Prediccion: " + response);
-                        $('#resultado').html("Me parece que es " + response);
-                        $('#image-container').html("<img src='" + URL.createObjectURL(form_data.get('imagensubida')) + "' width='350px' alt=''>");
+                        console.log(response);
+                        $('#resultado').html(response);
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.log(textStatus, errorThrown);

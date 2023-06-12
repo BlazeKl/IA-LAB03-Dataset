@@ -1,14 +1,15 @@
-import tensorflow as tf
 import io
-import numpy as np
-
+import matplotlib.pyplot as plt
+from ultralytics import YOLO
 from PIL import Image
 from http.server import HTTPServer, BaseHTTPRequestHandler
+import numpy as np
+import imageio
 
-model = tf.keras.models.load_model('models/modelo_cnn_cifar100_c10.h5')
+# Cargar modelo
+model = YOLO('best.pt')
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
-
     def do_POST(self):
         print("Peticion recibida")
         content_length = int(self.headers['Content-Length'])
@@ -17,37 +18,28 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
         # Decodificar imagen a PIL
         pil_image = Image.open(io.BytesIO(binary_image))
-        
-        # Transformar a 32x32
-        resized_image = pil_image.resize((32, 32))
-
-        # Convertir imagen PIL a numpy array
-        np_image = np.array(resized_image)
-
-        # Normalizar
-        np_image = np_image / 255.0
 
         # Generar prediccion
-        y_pred = model.predict(np_image.reshape(1, 32, 32, 3))
-        clases = [
-            'apple', 'aquarium_fish', 'baby', 'bear', 'beaver', 'bed', 'bee', 'beetle', 'bicycle', 'bottle'
-        ]
+        results = model(source=pil_image)
+        res_plot = results[0].plot()
+        img = Image.fromarray(res_plot)
+        imageio.imwrite('output.jpg', img)
 
-        max = 0
-        for i in range(100):
-            if y_pred[0][i] > max:
-                max = y_pred[0][i]
-                index = i
-
-        print('Prediccion: ', clases[index])
+        # Leer la imagen desde el archivo
+        with open('output.jpg', 'rb') as file:
+            image_data = file.read()
 
         # Generar respuesta a la petición HTTP
         self.send_response(200)
         self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Content-type", "image/jpeg")
+        self.send_header("Content-length", len(image_data))
         self.end_headers()
-        self.wfile.write(bytes(clases[index], 'utf-8'))
 
+        # Enviar la imagen
+        self.wfile.write(image_data)
 
 print("Iniciando el servidor...")
 server = HTTPServer(('localhost', 8000), SimpleHTTPRequestHandler)
 server.serve_forever()
+
